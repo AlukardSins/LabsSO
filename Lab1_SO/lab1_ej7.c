@@ -4,8 +4,7 @@
 
 int num_aleatorio();
 
-int main(int argc, char const *argv[])
-{
+int main() {
 	int a,b,res,solucion;
 	srand(time(NULL));
 	int final;
@@ -14,8 +13,7 @@ int main(int argc, char const *argv[])
 	printf("%s\n", " 1 para continuar 0 si desea terminar" );
 	scanf("%d" , &final);
 	
-
-	while(final==1){
+	while(final==1) {
 
 		a=num_aleatorio();
 		b=num_aleatorio();
@@ -25,10 +23,9 @@ int main(int argc, char const *argv[])
 		printf("cuanto es %d veces %d\n ", a,b);
 		scanf("%d", &res);
 
-
 		continuar=1;
 
-		while(continuar==1){
+		while(continuar==1) {
 			if (res==solucion)
 			{
 				printf("%s\n", "Muy bien!" );
@@ -54,7 +51,6 @@ int main(int argc, char const *argv[])
 				else{
 					printf("cuanto es %d veces %d\n", a,b);
 					scanf("%d", &res);
-
 				}
 
 			}
@@ -64,7 +60,8 @@ int main(int argc, char const *argv[])
 	return 0;
 }
 
-int num_aleatorio(){
+int num_aleatorio() {
 	int X = rand() % 10;
+
 	return X;
 }

@@ -4,8 +4,7 @@
 
 int lanzamiento();
 
-int main(int argc, char const *argv[])
-{
+int main() {
 	int cant_caras=0;
 	int cant_sellos=0;
 	int lanzamientos, moneda;
@@ -37,7 +36,8 @@ int main(int argc, char const *argv[])
 }
 
 
-int lanzamiento(){	
+int lanzamiento() {	
 	int aleatorio = rand()% 2;
+
 	return aleatorio;
 }
