@@ -1,5 +1,7 @@
 # LabsSO
 
 ## Integrantes
+
 > RODRÍGUEZ GARCÍA DANIEL ALEJANDRO
+
 > TORO RAMÍREZ STEFANNY
