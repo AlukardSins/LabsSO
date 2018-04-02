@@ -23,6 +23,7 @@ void mostrarInfoProceso(infoProceso** pr);
 void asignarInfoArchivo(infoProceso** pr , FILE *fOutProcess);
 void asignarNombreArchivo(int tamano , char *arreglo[] , char* nombreArch);
 int BuscarProceso(infoProceso** pr, int tamano , char *arreglo);
+void mensajeParamValidos();
 
 /* Main */
 int main(int argc, char*argv[]) {
@@ -69,7 +70,17 @@ int main(int argc, char*argv[]) {
 
 	/* When only one number enters */
 	 if(strcmp(argv[1],"-r")!= 0 && strcmp(argv[1],"-l")!= 0) {
-
+		 
+		 if(argc > 2){
+       printf("%s\n", "Too many arguments");
+       mensajeParamValidos();
+       return 1;
+     }
+     if(atoi(argv[1])==0){
+       printf("%s\n", "Command not found");
+       mensajeParamValidos();
+       return 1;
+     }
 		 procesoBuscado = BuscarProceso(&proceso,argc,argv[1]);
 
 		 if(procesoBuscado == 1) return 1;
@@ -229,4 +240,11 @@ int BuscarProceso(infoProceso** pr, int tamano , char *arreglo){
 	informacionProceso(pr, fInputStatus);
 	fclose(fInputStatus);
 	return 0;
+}
+
+/**
+* This method will be used to print valid commands.
+*/
+void mensajeParamValidos(){
+  printf("%s\n","\nValid commands\n ./psinfo -l \n ./psinfo -r \n ./psinfo 'numberOfProcess'" );
 }
