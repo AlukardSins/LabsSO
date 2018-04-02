@@ -38,7 +38,7 @@ int main(int argc, char*argv[]) {
 	int procesoBuscado; // 1 if dont find the process
 
 
-/* When the command -l is entered */
+	/* When the command -l is entered */
 	if (strcmp(argv[1],"-l")== 0) {
 
 		for (int i = 2; i < argc; i++) {
@@ -49,7 +49,7 @@ int main(int argc, char*argv[]) {
 		}
 	}
 
-/* When the command -r is entered */
+	/* When the command -r is entered */
 	if(strcmp(argv[1],"-r")== 0){
 
 		char nombreArchivo[80] = "psinfo-report";
