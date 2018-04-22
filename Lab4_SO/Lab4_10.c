@@ -23,9 +23,11 @@ int main() {
 				//Si lo crea
 				//Imprime su info
 				printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
-			} else {
+			} else if (leftSon < 0){
 				//Fallo la creacion del hijo Izq AKA 2
 				printf("El hijo Izq valio madres\n");
+			} else {
+				break;
 			}
 		} else if (rightSon = 0 && n = 1) {
 			//Si lo crea y estamos en segundo nivel
@@ -45,21 +47,27 @@ int main() {
 					//Si lo crea
 					//Imprime su info
 					printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
+				} else if (rightGrandchild < 0) {
+					printf("El nieto Der valio madres\n");
+				} else {
+					//Espera ambos nietos
+					waitpid(rightGrandchild, &ab, 0);
+					waitpid(leftGrandchild, &ab, 0);
 				}
-				//Espera ambos nietos
-				waitpid(rightGrandchild, &ab, 0);
-				waitpid(leftGrandchild, &ab, 0);
-			} else {
+			} else if (leftSon < 0) {
 				//Fallo la creacion del hijo Izq AKA 2
 				printf("El nieto Izq valio madres\n");
+			} else {
+				break;
 			}
-		} else {
+		} else if (rightSon < 0){
 			//Fallo la creacion del hijo Der AKA 3
 			printf("El hijo Der valio madres\n");
+		} else {
+			//Espera ambos hijos
+			waitpid(rightSon, &ab, 0);
+			waitpid(leftSon, &ab, 0);
+			return 0;
 		}
 	}
-	//Espera ambos hijos
-	waitpid(rightSon, &ab, 0);
-	waitpid(leftSon, &ab, 0);
-	return 0;
 }

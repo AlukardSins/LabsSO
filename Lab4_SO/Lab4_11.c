@@ -20,6 +20,8 @@ int  main() {
 		int son = fork()
 		if (son = 0) {
 			printf("Soy el hijo #%d\t y solucione 10! = %d\t asi que admiradme soy inteligente. *se va a la mesa a comer colbon*\n", i, factorial(factor));
+		} else if (son < 0){
+			printf("Esto valio madres\n");
 		} else {
 			waitpid(son, &ab, 0);
 		}
