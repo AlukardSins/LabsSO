@@ -1,8 +1,10 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 int main() {
 
-	int rightSon, leftSon, ab;
+	int rightSon, leftSon;
 	//Crea al padre AKA 1
 	int p = getpid();
 	printf("Luke, YO soy tu padre: \t%d\t y mi padre es: \t%d\n" , p, getppid());
@@ -12,14 +14,14 @@ int main() {
 		//Crea al hijo derecho AKA 3
 		rightSon = fork();
 
-		if(rightSon = 0 && n = 0) {
+		if(rightSon == 0 && n == 0) {
 			//Si lo crea y estamos en primer nivel
 			//Imprime su info
 			printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
 			//Crea al hijo izquierdo AKA 2
 			leftSon = fork();
 
-			if(leftSon = 0) {
+			if(leftSon == 0) {
 				//Si lo crea
 				//Imprime su info
 				printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
@@ -29,21 +31,21 @@ int main() {
 			} else {
 				break;
 			}
-		} else if (rightSon = 0 && n = 1) {
+		} else if (rightSon == 0 && n == 1) {
 			//Si lo crea y estamos en segundo nivel
 			//Imprime su info
 			printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
 			//Crea al nieto Izq AKA 4
 			int leftGrandchild = fork();
 
-			if (leftGrandchild = 0) {
+			if (leftGrandchild == 0) {
 				//Si lo crea
 				//Imprime su info
 				printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
 				//Crea al nieto Der AKA 5
 				int rightGrandchild = fork();
 
-				if (rightGrandchild = 0) {
+				if (rightGrandchild == 0) {
 					//Si lo crea
 					//Imprime su info
 					printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
@@ -51,8 +53,8 @@ int main() {
 					printf("El nieto Der valio madres\n");
 				} else {
 					//Espera ambos nietos
-					waitpid(rightGrandchild, &ab, 0);
-					waitpid(leftGrandchild, &ab, 0);
+					waitpid(rightGrandchild, 0, 0);
+					waitpid(leftGrandchild, 0, 0);
 				}
 			} else if (leftSon < 0) {
 				//Fallo la creacion del hijo Izq AKA 2
@@ -65,8 +67,8 @@ int main() {
 			printf("El hijo Der valio madres\n");
 		} else {
 			//Espera ambos hijos
-			waitpid(rightSon, &ab, 0);
-			waitpid(leftSon, &ab, 0);
+			waitpid(rightSon, 0, 0);
+			waitpid(leftSon, 0, 0);
 			return 0;
 		}
 	}
