@@ -14,7 +14,7 @@ int main() {
 		//Crea al hijo derecho AKA 3
 		rightSon = fork();
 
-		if(rightSon == 0 && n == 0) {
+		if(rightSon == 0) {
 			//Si lo crea y estamos en primer nivel
 			//Imprime su info
 			printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
@@ -31,7 +31,7 @@ int main() {
 			} else {
 				break;
 			}
-		} else if (rightSon == 0 && n == 1) {
+		} else if (rightSon == 0 ) {
 			//Si lo crea y estamos en segundo nivel
 			//Imprime su info
 			printf("NOOOOOOOOOOOOOOOOOOOO \t%d\t Obi Wan me dijo que mataste a mi padre: \t%d\n", getpid(), getppid());
