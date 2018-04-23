@@ -4,31 +4,24 @@
 #include <sys/wait.h>
 
 int main () {
-    pid_t pid_hijo1;
-    pid_t pid_hijo2;
-    pid_t pid_hijo3;
-    pid_hijo1 = fork(); // Creo el primer hijo
-    if (pid_hijo1 == 0) { // Hijo 1
-     printf("Soy el hijo 1\n");
-     //sleep (5);
-   } else {  // Padre
-      wait(NULL);
-       pid_hijo2 = fork(); // Creo al segundo hijo
-       if (pid_hijo2 == 0) { // Hijo 2
-         printf("Soy el hijo 2\n");
-         //sleep (5);
-       } else {  // Padre
+    int i;
+    int numHijos = 3;
+    pid_t pid;
+    for (i = 0; i < numHijos; i++) {
+        pid = fork();
+        if (pid == -1) {
+            /* Error */
+            printf("No fue posible crear un hijo\n");
+            return -1;
+        }
+        if (pid == 0) {
+            printf("Soy el hijo #%d con PID: %d\n",i+1, getpid());
+            exit(0);
+        }
+        else{
           wait(NULL);
-           pid_hijo3 = fork();  // Creo al tercer hijo
-           if (pid_hijo3 == 0) { // Hijo 3
-             printf("Soy el hijo 3\n");
-             //sleep (5);
-           } else {  // Padre
-             wait(NULL);
-             printf("Soy el padre\n");
-             //sleep (5);
-           }
-       }
-   }
-   return 0;
+        }
+
+    }
+    return 0;
 }

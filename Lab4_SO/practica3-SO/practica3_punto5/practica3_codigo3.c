@@ -1,26 +1,34 @@
-#include <unistd.h>
 #include <stdio.h>
-#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
-int main(int argc, char *argv[]) {
-  pid_t valor_retornado;
-  printf("Ejemplo de fork. Este proceso va a crear otro proceso\n");
-  printf("El PID del programa principal es: %d\n", (int)getpid());
-  switch(valor_retornado = fork()) {
-    case -1: // Caso de error
-       printf("Error al crear el proceso");
-    return -1;
-    case 0: // Codigo ejecutado por el hijo
-       printf("PROCESO HIJO:\n");
-       printf("Mi PID es:%d\n", (int)valor_retornado);
-    break;
-    default: // Codigo ejecutado por el padre
+int main () {
+    pid_t pid_hijo1;
+    pid_t pid_hijo2;
+    pid_t pid_hijo3;
+    pid_hijo1 = fork(); // Creo el primer hijo
+    if (pid_hijo1 == 0) { // Hijo 1
+     printf("Soy el hijo 1\n");
+     //sleep (5);
+   } else {  // Padre
       wait(NULL);
-      printf("PROCESO PADRE:\n");
-      printf("El PID de mi hijo es:%d\n", (int)valor_retornado);
-  }
-  // Código ejecutado tanto por el padre como el hijo
-  printf("Finalizando el programa...:\n");
-  return 0;
+       pid_hijo2 = fork(); // Creo al segundo hijo
+       if (pid_hijo2 == 0) { // Hijo 2
+         printf("Soy el hijo 2\n");
+         //sleep (5);
+       } else {  // Padre
+          wait(NULL);
+           pid_hijo3 = fork();  // Creo al tercer hijo
+           if (pid_hijo3 == 0) { // Hijo 3
+             printf("Soy el hijo 3\n");
+             //sleep (5);
+           } else {  // Padre
+             wait(NULL);
+             printf("Soy el padre\n");
+             //sleep (5);
+           }
+       }
+   }
+   return 0;
 }

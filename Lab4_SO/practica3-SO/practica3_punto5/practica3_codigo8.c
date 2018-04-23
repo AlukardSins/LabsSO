@@ -1,29 +1,26 @@
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 
 int main(int argc, char *argv[]) {
-  pid_t pid_hijo;
-  printf("El pid del programa principal es: %d\n",(int)getpid());
-
-  switch(pid_hijo=fork()) {
-
-    case -1: /* Código ejecutado en caso de error*/
-      printf("Error al crear el proceso");
-      return -1;
-    case 0: /* Código ejecutado por el hijo */
-      printf("Hijo: Valor de retorno fork: %d\n",(int)pid_hijo);
-      printf("Hijo: Mi PID: %d\n",(int)getpid());
-      printf("Hijo: PID del padre: %d\n",(int)getppid());
-      exit(0);
-    printf("Esta instrucción nunca se ejecutara en el proceso hijo\n");
-      break;
-    default: /* Código ejecutado por el padre */
+  pid_t valor_retornado;
+  printf("Ejemplo de fork. Este proceso va a crear otro proceso\n");
+  printf("El PID del programa principal es: %d\n", (int)getpid());
+  switch(valor_retornado = fork()) {
+    case -1: // Caso de error
+       printf("Error al crear el proceso");
+    return -1;
+    case 0: // Codigo ejecutado por el hijo
+       printf("PROCESO HIJO:\n");
+       printf("Mi PID es:%d\n", (int)valor_retornado);
+    break;
+    default: // Codigo ejecutado por el padre
       wait(NULL);
-      printf("Padre: PID del proceso hijo: %d\n",(int)pid_hijo);
-      printf("Padre: Mi PID: %d\n",(int)getpid());
-      printf("Padre: PID de mi padre: %d\n",(int)getppid());
+      printf("PROCESO PADRE:\n");
+      printf("El PID de mi hijo es:%d\n", (int)valor_retornado);
   }
+  // Código ejecutado tanto por el padre como el hijo
+  printf("Finalizando el programa...:\n");
   return 0;
 }
