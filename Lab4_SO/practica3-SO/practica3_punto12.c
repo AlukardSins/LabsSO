@@ -3,11 +3,7 @@
 #include <sys/wait.h>
 
 
-int main(int argc, char const *argv[])
-{
-	/* code */
-	return 0;
-}
+
 int main()
 {
 	//Crear hijo
@@ -16,8 +12,8 @@ int main()
 	if (pid == 0) {
 		//Se creo correctamente
 		//Ruta del proceso
-		char ruta[];
-		char args[];
+		char ruta[20];
+		char args[20];
 		//Ingresar la ruta
 		printf("Ingresar la ruta del proceso a ejecutar: ");
 		scanf("%s", ruta);
