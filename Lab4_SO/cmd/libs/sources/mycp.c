@@ -13,11 +13,13 @@ int main(int argc, char *argv[])
 		origen = fopen(argv[1], "r");
 		destino = fopen(argv[2], "w");
 
+
 		// Iniciar copia
 		if(origen == NULL){
 			printf("No ha sido posible abrir el archivo de origen\n");
 			fclose(destino);
 		} else {
+			printf("va a entrar al while" );
 			while((ch = fgetc(origen)) != EOF){
 				fputc(ch, destino);
 			}
