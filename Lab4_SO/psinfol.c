@@ -153,17 +153,17 @@ void print_info(proc_info* pi){
 	printf("TamaÃ±o de la memoria en la regiÃ³n TEXT: %s", pi->vmexe);
 	printf("TamaÃ±o de la memoria en la regiÃ³n DATA: %s", pi->vmdata);
 	printf("TamaÃ±o de la memoria en la regiÃ³n STACK: %s", pi->vmstk);
-	printf("NÃºmero de cambios de contexto realizados (voluntarios - no voluntarios): %d\t-\t%d\n", pi->voluntary_ctxt_switches, pi->nonvoluntary_ctxt_switches);
+	printf("NÃºmero de cambios de contexto realizados (voluntarios - no voluntarios): \t%d\t-\t%d\n", pi->voluntary_ctxt_switches, pi->nonvoluntary_ctxt_switches);
 }
 
 int main(int argc, char *argv[]){
 	//Sem init
 	//Full, starts empty
-	sem_init(&full,0,0);
+	sem_init(&full, 0, 0);
 	//Empty, starts full [PROC_BUFF_SIZE]
-	sem_init(&empty,0,PROC_BUFF_SIZE);
+	sem_init(&empty, 0, PROC_BUFF_SIZE);
 	//Mutex, allow only 1 in critical seccion
-	sem_init(&mutex,0,1);
+	sem_init(&mutex, 0, 1);
 
 	//Thread init
 	pthread_t threads[numProc + 1];
@@ -183,7 +183,7 @@ int main(int argc, char *argv[]){
 	for (i = 0; i < numProc; i++)
 	{
 		//Get proc PID
-		int pid = atoi(argv[i+1]);
+		int pid = atoi(argv[i + 1]);
 		//Thread starts producing proc_info to shrdBuff
 		pthread_create(&threads[i], NULL, &produce, &pid);
 	}
