@@ -110,18 +110,38 @@ void load_info(int pid, proc_info* myinfo){
 }
 
 void *produce(void* vPid) {
-	int pid = (int *) vPid;
+	int *pid = (int*)vPid;
 
 	//Sem waits
 	sem_wait(&empty);
 	sem_wait(&mutex);
 	//Critical seccion
-	load_info(pid, &shrdBuff[pos % PROC_BUFF_SIZE]);
+	load_info(*pid, &shrdBuff[pos % PROC_BUFF_SIZE]);
 	pos++;
 	//Sem posts
 	sem_post(&mutex);
 	sem_post(&full);
+	return 0;
 }
+
+/**
+ *	\brief print_info
+ *
+ *	Print process information to stdout stream
+ *
+ *	\param pi (in) process info struct
+ */
+void print_info(proc_info* pi) {
+	printf("PID: %d \n", pi->pid);
+	printf("Nombre del proceso: %s", pi->name);
+	printf("Estado: %s", pi->state);
+	printf("TamaÃ±o total de la imagen de memoria: %s", pi->vmsize);
+	printf("TamaÃ±o de la memoria en la regiÃ³n TEXT: %s", pi->vmexe);
+	printf("TamaÃ±o de la memoria en la regiÃ³n DATA: %s", pi->vmdata);
+	printf("TamaÃ±o de la memoria en la regiÃ³n STACK: %s", pi->vmstk);
+	printf("NÃºmero de cambios de contexto realizados (voluntarios - no voluntarios): \t%d\t-\t%d\n", pi->voluntary_ctxt_switches, pi->nonvoluntary_ctxt_switches);
+}
+
 
 void *consume() {
 	for (int i = 0; i < numProc; i++)
@@ -136,25 +156,10 @@ void *consume() {
 		sem_post(&mutex);
 		sem_post(&empty);
 	}
+	return 0;
 }
 
-/**
- *	\brief print_info
- *
- *	Print process information to stdout stream
- *
- *	\param pi (in) process info struct
- */
-void print_info(proc_info* pi){
-	printf("PID: %d \n", pi->pid);
-	printf("Nombre del proceso: %s", pi->name);
-	printf("Estado: %s", pi->state);
-	printf("TamaÃ±o total de la imagen de memoria: %s", pi->vmsize);
-	printf("TamaÃ±o de la memoria en la regiÃ³n TEXT: %s", pi->vmexe);
-	printf("TamaÃ±o de la memoria en la regiÃ³n DATA: %s", pi->vmdata);
-	printf("TamaÃ±o de la memoria en la regiÃ³n STACK: %s", pi->vmstk);
-	printf("NÃºmero de cambios de contexto realizados (voluntarios - no voluntarios): \t%d\t-\t%d\n", pi->voluntary_ctxt_switches, pi->nonvoluntary_ctxt_switches);
-}
+
 
 int main(int argc, char *argv[]){
 	//Sem init
@@ -194,7 +199,7 @@ int main(int argc, char *argv[]){
 	//Threads join
 	for (i = 0; i <= numProc; i++)
 	{
-		pthread_join(&threads[i],NULL);
+		pthread_join(threads[i],NULL);
 	}
 
 	//Sem destroy
@@ -204,5 +209,3 @@ int main(int argc, char *argv[]){
 
 	return 0;
 }
-
-
