@@ -8,7 +8,7 @@
  *	through the pthreads library.
  *
  *	 \author: Danny Munera - Sistemas Operativos UdeA
- *	 \modified by: AlukardSins
+ *	 \modified by: AlukardSins and stefannytoror
  */
 
 #include <stdio.h>
